@@ -1,0 +1,12 @@
+basepath: /api
+spring:
+  application:
+    name: sensor-events
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: sensor-events
+server:
+  port: '8090'
+
