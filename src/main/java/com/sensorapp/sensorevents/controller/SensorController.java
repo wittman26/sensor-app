@@ -3,6 +3,7 @@ package com.sensorapp.sensorevents.controller;
 import com.sensorapp.sensorevents.dto.SensorDTO;
 import com.sensorapp.sensorevents.model.Sensor;
 import com.sensorapp.sensorevents.services.SensorService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class SensorController {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Sensor> setSensorEvent(@RequestBody SensorDTO sensorDto) {
+  public ResponseEntity<Sensor> setSensorEvent(@Valid @RequestBody SensorDTO sensorDto) {
       Sensor sensorDB = sensorService.createSensor(sensorDto);
       return new ResponseEntity<>(sensorDB, HttpStatus.OK);
   }

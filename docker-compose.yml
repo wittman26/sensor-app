@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  sensor-events:
+    build: .
+    container_name: "docker-sensor-events"
+    ports:
+      - 8090:8090
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb-container"
+    ports:
+      - 27017:27017
