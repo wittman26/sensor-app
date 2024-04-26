@@ -1,5 +1,6 @@
 package com.sensorapp.sensorevents.controller;
 
+import com.sensorapp.sensorevents.config.MessageProducer;
 import com.sensorapp.sensorevents.dto.SensorDTO;
 import com.sensorapp.sensorevents.model.Sensor;
 import com.sensorapp.sensorevents.services.SensorService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,9 +24,11 @@ import java.util.List;
 public class SensorController {
 
   final SensorService sensorService;
+  final MessageProducer messageProducer;
 
-  public SensorController(SensorService sensorService) {
+  public SensorController(SensorService sensorService, MessageProducer messageProducer) {
     this.sensorService = sensorService;
+    this.messageProducer = messageProducer;
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,6 +46,12 @@ public class SensorController {
   @GetMapping(value ="healthcheck", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<String> getSensorEventTest() {
       return new ResponseEntity<>("Service TODO is running", HttpStatus.OK);
+  }
+
+  @PostMapping("/send")
+  public String sendMessage(@RequestParam("message") String message) {
+    messageProducer.sendMessage("sensor-events", message);
+    return "Message sent: " + message;
   }
 
 }
