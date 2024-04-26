@@ -5,6 +5,12 @@ spring:
       host: mongodb-container
       port: 27017
       database: sensor-events
+  kafka:
+    bootstrap-servers:
+      kafka-container:9092
+    consumer:
+      group-id:
+        sensor-app-br
 server:
   port: '8090'
 

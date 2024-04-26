@@ -31,7 +31,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": \"\",\r\n    \"timestamp\": \"2024-02-15T12:34:56Z\",\r\n    \"type\": \"temperature\",\r\n    \"value\": 25.3\r\n}",
+					"raw": "{\r\n    \"id\": \"sensor_123\",\r\n    \"timestamp\": \"2024-02-15T12:34:56Z\",\r\n    \"type\": \"temperature\",\r\n    \"value\": 25.3\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -46,6 +46,40 @@
 					"path": [
 						"api",
 						"sensor-events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Kafka",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/sensor-events/send?message=Hello_Kafka",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"sensor-events",
+						"send"
+					],
+					"query": [
+						{
+							"key": "message",
+							"value": "Hello_Kafka"
+						}
 					]
 				}
 			},
