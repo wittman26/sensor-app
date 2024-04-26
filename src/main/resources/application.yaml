@@ -1,10 +1,13 @@
+# Basepath to consult the API {{base-url}}{{basepath}}/sensor-events
 basepath: /api
+
+# Database properties
 spring:
   data:
     mongodb:
-      host: mongodb-container
+      host: localhost
       port: 27017
       database: sensor-events
 server:
-  port: '8090'
+  port: '8091'
 
