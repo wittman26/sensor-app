@@ -12,14 +12,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base-url}}/api/sensor-events/healthcheck",
+					"raw": "{{base-url}}/api/health",
 					"host": [
 						"{{base-url}}"
 					],
 					"path": [
 						"api",
-						"sensor-events",
-						"healthcheck"
+						"health"
 					]
 				}
 			},
