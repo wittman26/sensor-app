@@ -1,11 +1,14 @@
+# Basepath to consult the API {{base-url}}{{basepath}}/sensor-events
 basepath: /api
 spring:
   data:
+    # Database properties
     mongodb:
       host: mongodb-container
       port: 27017
       database: sensor-events
   kafka:
+    # Kafka properties
     bootstrap-servers:
       kafka-container:9092
     consumer:

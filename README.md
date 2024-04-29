@@ -2,23 +2,18 @@
 
 Sensor-app is an API REST application example built with Spring Boot framework.
 
-
-docker-compose build
-docker-compose up -d
-
 # Getting Started
 
 ## Running using compose
-docker-compose build
-docker-compose up -d
-
-## Run locally with docker
 
 Run the following commands to run locally 
 ```
 ./mvnw clean install -DskipTests
 docker-compose up --build -d
 ```
+
+The application will be available on port 8090 in this URL `localhost:8090/api`
+Dockerfile uses DEV profile by default so all properties configuration are taken from applicatin-dev.yaml
 
 Postman collection is provided in root folder to test the application.
 
@@ -52,7 +47,7 @@ The default endpoint is: `localhost:8091/api`
 
 ## Run application
 
-MongoDB should be runinng before starting the app.
+MongoDB and Kafka should be running before starting the app.
 
 ```
 mvn spring-boot:run
@@ -63,7 +58,6 @@ In windows systems type
 ```
 ./mvnw spring-boot:run
 ```
-
 
 ## Endpoints
 A postman collection is provided in root folder.
@@ -97,5 +91,7 @@ docker logs --follow <container-id>
 This project is built using the following technologies:
 - Java Spring framework 3.2.5
 - Java 17
+- Kafka (using Zookeeper)
+- MmongoDB
 - Lombok
 - Modelmapper

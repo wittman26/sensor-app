@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.sensorapp.sensorevents.utils.Constants.SENSOR_TOPIC;
+
 @RestController
 @CrossOrigin
 @RequestMapping("${basepath}/sensor-events")
@@ -31,9 +33,15 @@ public class SensorController {
     this.messageProducer = messageProducer;
   }
 
+  @GetMapping(value ="healthcheck", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<String> getSensorEventTest() {
+    return new ResponseEntity<>("Service SENSOR-EVENTS is running", HttpStatus.OK);
+  }
+
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Sensor> setSensorEvent(@Valid @RequestBody SensorDTO sensorDto) {
+  public ResponseEntity<Sensor> setSensorEvent(@RequestBody @Valid SensorDTO sensorDto) {
       Sensor sensorDB = sensorService.createSensor(sensorDto);
+      messageProducer.sendMessage(SENSOR_TOPIC, sensorDto.toString());
       return new ResponseEntity<>(sensorDB, HttpStatus.OK);
   }
 
@@ -43,12 +51,7 @@ public class SensorController {
     return new ResponseEntity<>(sensorDTOList, HttpStatus.OK);
   }
 
-  @GetMapping(value ="healthcheck", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<String> getSensorEventTest() {
-      return new ResponseEntity<>("Service TODO is running", HttpStatus.OK);
-  }
-
-  @PostMapping("/send")
+  @PostMapping("/test-kafka")
   public String sendMessage(@RequestParam("message") String message) {
     messageProducer.sendMessage("sensor-events", message);
     return "Message sent: " + message;
