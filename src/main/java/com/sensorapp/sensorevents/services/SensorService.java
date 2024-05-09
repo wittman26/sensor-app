@@ -34,4 +34,22 @@ public class SensorService {
     );
     return sensorDTOList;
   }
+
+  public SensorDTO getSensorById(String id) {
+    Sensor sensor = sensorRepository.findById(id).orElse(null);
+    if(sensor == null){
+      return null;
+    }
+    return modelMapper.map(sensor, SensorDTO.class);
+  }
+
+  public SensorDTO updateSensor(SensorDTO sensorDTO) {
+    Sensor sensor = modelMapper.map(sensorDTO, Sensor.class);
+    Sensor sensorDB = sensorRepository.save(sensor);
+    return modelMapper.map(sensorDB, SensorDTO.class);
+  }
+
+  public void deleteSensor(String id) {
+    sensorRepository.deleteById(id);
+  }
 }
